@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
-const Navigation = () => {
+const Navigation = ({ userObj }) => {
+
   return (
     <nav>
       <ul>
@@ -8,7 +9,8 @@ const Navigation = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/profile">Profile</Link>
+          {/* displayName은 구글이나 깃허브에 가입한 이름 값 */}
+          <Link to="/profile">{userObj.displayName ? userObj.displayName : userObj.email}님의 Profile</Link>
         </li>
       </ul>
     </nav>

@@ -4,17 +4,30 @@ import { authService } from 'fbase'
 
 function App() {
   const [loading, setLoading] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userObj, setUserObj] = useState(null)
 
+  const refreshUser = () => {
+    const user = authService.currentUser
+
+    setUserObj({
+      uid: user.uid,
+      displayName: user.displayName,
+      updateProfile: (args) => user.updateProfile(args)
+    })
+  }
+
   useEffect(() => {
+
     // 로그인한 사람의 정보 받아오기
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setIsLoggedIn(user)
-        setUserObj(user)
+        setUserObj({
+          uid: user.uid,
+          displayName: user.displayName,
+          updateProfile: (args) => user.updateProfile(args)
+        })
       } else {
-        setIsLoggedIn(false)
+        setUserObj(false)
       }
       setLoading(true)
     })
@@ -22,7 +35,8 @@ function App() {
 
   return (
     <>
-      {loading ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> : "loading..."}
+      {loading ?
+        <AppRouter isLoggedIn={Boolean(userObj)} refreshUser={refreshUser} userObj={userObj} /> : "loading..."}
       <footer>&copy; {new Date().getFullYear()} Nwitter</footer>
     </>
   );
