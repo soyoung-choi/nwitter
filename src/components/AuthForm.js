@@ -18,7 +18,7 @@ const AuthForm = () => {
   }
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       let data
 
@@ -59,14 +59,14 @@ const AuthForm = () => {
         />
         <input
           type="submit"
-          value={newAccount ? "회원가입" : "로그인"}
+          value={newAccount ? '회원가입' : '로그인'}
           className="auth-input auth-submit"
         />
         <p>{error}</p>
       </form>
       <div>
         <span onClick={toggleAccount} className="auth-switch">
-          {newAccount ? "로그인" : "회원가입"}
+          {newAccount ? '로그인' : '회원가입'}
         </span>
       </div>
     </>

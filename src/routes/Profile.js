@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { authService, dbService } from "fbase"
+import { authService, dbService } from 'fbase'
 import Nweet from 'components/Nweet'
 
 const Profile = ({ userObj, refreshUser }) => {
@@ -9,7 +9,7 @@ const Profile = ({ userObj, refreshUser }) => {
   const [nweets, setNweets] = useState('')
 
   const onLogOutClick = () => {
-    authService.signOut();
+    authService.signOut()
     navigate('/')
   }
 
@@ -21,19 +21,21 @@ const Profile = ({ userObj, refreshUser }) => {
       .onSnapshot((snapshot) => {
         const newArray = snapshot.docs.map((document) => ({
           id: document.id,
-          ...document.data()
+          ...document.data(),
         }))
         setNweets(newArray)
       })
   }
 
   const onChange = (e) => {
-    const { target: { value } } = e
+    const {
+      target: { value },
+    } = e
     setNewDisplayName(value)
   }
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     // 사용자명이 기존과 다르게 변경된 값일떄
     if (userObj.displayName !== newDisplayName) {
@@ -48,28 +50,39 @@ const Profile = ({ userObj, refreshUser }) => {
   }, [])
 
   return (
-    <div className='container'>
+    <div className="container">
       <form onSubmit={onSubmit} className="profile-form">
-        <input type="text" value={newDisplayName} onChange={onChange} placeholder="사용자명"
-          autoFocus className='form-input' />
-        <input type="submit" value="사용자명 수정" className="form-btn" style={{ marginTop: 10 }} />
+        <input
+          type="text"
+          value={newDisplayName}
+          onChange={onChange}
+          placeholder="사용자명"
+          autoFocus
+          className="form-input"
+        />
+        <input
+          type="submit"
+          value="사용자명 수정"
+          className="form-btn"
+          style={{ marginTop: 10 }}
+        />
       </form>
-      <span className="form-btn cancel-btn" onClick={onLogOutClick}>로그아웃</span>
+      <span className="form-btn cancel-btn" onClick={onLogOutClick}>
+        로그아웃
+      </span>
       <section>
-        <h3 className='subtitle'>내가 쓴 글</h3>
-        <div className='grid-container'>
-          {
-            nweets && nweets.map((nweet) => (
+        <h3 className="subtitle">내가 쓴 글</h3>
+        <div className="grid-container">
+          {nweets &&
+            nweets.map((nweet) => (
               <Nweet
                 key={nweet.id}
                 nweetObj={nweet}
                 isOwner={nweet.creatorId === userObj.uid}
               />
-            ))
-          }
+            ))}
         </div>
       </section>
-
     </div>
   )
 }
