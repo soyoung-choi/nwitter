@@ -18,9 +18,13 @@ const Profile = ({ userObj, refreshUser }) => {
       .collection('nweet')
       .where('creatorId', '==', userObj.uid)
       .orderBy('createdAt', 'asc')
-      .get()
-
-    setNweets(myNweets.docs.map((doc) => doc.data()))
+      .onSnapshot((snapshot) => {
+        const newArray = snapshot.docs.map((document) => ({
+          id: document.id,
+          ...document.data()
+        }))
+        setNweets(newArray)
+      })
   }
 
   const onChange = (e) => {
