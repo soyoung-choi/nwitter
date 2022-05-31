@@ -44,25 +44,29 @@ const Profile = ({ userObj, refreshUser }) => {
   }, [])
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input type="text" value={newDisplayName} onChange={onChange} placeholder="사용자명" />
-        <input type="submit" value="프로필 수정" />
+    <div className='container'>
+      <form onSubmit={onSubmit} className="profile-form">
+        <input type="text" value={newDisplayName} onChange={onChange} placeholder="사용자명"
+          autoFocus className='form-input' />
+        <input type="submit" value="사용자명 수정" className="form-btn" style={{ marginTop: 10 }} />
       </form>
-      <button onClick={onLogOutClick}>로그아웃</button>
-      <div>
-        {
-          nweets && nweets.map((nweet) => (
-            <Nweet
-              key={nweet.id}
-              nweetObj={nweet}
-              isOwner={nweet.creatorId === userObj.uid}
-            />
-          ))
-        }
-      </div>
+      <span className="form-btn cancel-btn" onClick={onLogOutClick}>로그아웃</span>
+      <section>
+        <h3 className='subtitle'>내가 쓴 글</h3>
+        <div className='grid-container'>
+          {
+            nweets && nweets.map((nweet) => (
+              <Nweet
+                key={nweet.id}
+                nweetObj={nweet}
+                isOwner={nweet.creatorId === userObj.uid}
+              />
+            ))
+          }
+        </div>
+      </section>
 
-    </>
+    </div>
   )
 }
 
