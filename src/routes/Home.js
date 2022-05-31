@@ -1,4 +1,4 @@
-import { dbService, storageService } from 'fbase'
+import { dbService } from 'fbase'
 import { useEffect, useState } from 'react'
 import Nweet from 'components/Nweet'
 import NweetFactory from 'components/NweetFactory'
@@ -8,10 +8,9 @@ const Home = ({ userObj }) => {
 
   useEffect(() => {
     // 실시간 데이터베이스 도입
-    dbService.collection('nweet').onSnapshot((snapshot) => {
+    dbService.collection('nweet').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
       const newArray = snapshot.docs.map((document) => ({
         id: document.id,
-        creatorId: document.creatorId,
         ...document.data()
       }))
       setNweets(newArray)
@@ -21,7 +20,7 @@ const Home = ({ userObj }) => {
   return (
     <>
       <NweetFactory userObj={userObj} />
-      <div>
+      <div className='grid-container'>
         {
           nweets && nweets.map((nweet) => (
             <Nweet
