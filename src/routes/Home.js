@@ -9,7 +9,7 @@ const Home = ({ userObj }) => {
   useEffect(() => {
     // 실시간 데이터베이스 도입
     dbService
-      .collection('nweet')
+      .collection('nweets')
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
         const newArray = snapshot.docs.map((document) => ({

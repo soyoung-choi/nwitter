@@ -10,7 +10,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
   const onDeleteClick = async () => {
     if (window.confirm('삭제하시겠습니까?')) {
       // 글 삭제
-      await dbService.doc(`nweet/${nweetObj.id}`).delete()
+      await dbService.doc(`nweets/${nweetObj.id}`).delete()
       if (nweetObj.attachmentUrl !== '') {
         // 이미지 삭제
         await storageService.refFromURL(nweetObj.attachmentUrl).delete()
@@ -28,7 +28,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    await dbService.doc(`nweet/${nweetObj.id}`).update({
+    await dbService.doc(`nweets/${nweetObj.id}`).update({
       text: newNweet,
     })
     setEditing(false)
@@ -47,7 +47,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
               autoFocus
               className="form-input"
             />
-            <input type="submit" value="Update Nweet" className="form-btn" />
+            <input type="submit" value="수정" className="form-btn" />
           </form>
           <button onClick={toggleEditing} className="form-btn cancel-btn">
             취소

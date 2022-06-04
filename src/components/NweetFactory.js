@@ -23,7 +23,7 @@ const NweetFactory = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL()
     }
 
-    await dbService.collection('nweet').add({
+    await dbService.collection('nweets').add({
       text: nweet,
       createdAt: Date.now(),
       creatorId: userObj.uid,

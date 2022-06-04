@@ -17,8 +17,7 @@ const Navigation = ({ userObj }) => {
           {/* displayName은 구글이나 깃허브에 가입한 이름 값 */}
           <Link to="/profile">
             <FontAwesomeIcon icon={faUser} color={'#04aaff'} size="1x" />
-            {userObj.displayName ? userObj.displayName : userObj.email}님의
-            Profile
+            {userObj.displayName && userObj.displayName}님의 Profile
           </Link>
         </li>
       </ul>

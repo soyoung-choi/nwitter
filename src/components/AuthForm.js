@@ -62,7 +62,9 @@ const AuthForm = () => {
           value={newAccount ? '회원가입' : '로그인'}
           className="auth-input auth-submit"
         />
-        <p>{error}</p>
+        <p style={{ textAlign: 'center', fontSize: '15px', padding: '20px 0' }}>
+          {error}
+        </p>
       </form>
       <div>
         <span onClick={toggleAccount} className="auth-switch">

@@ -14,10 +14,10 @@ const Profile = ({ userObj, refreshUser }) => {
   }
 
   const getMyNweets = async () => {
-    const myNweets = await dbService
-      .collection('nweet')
+    await dbService
+      .collection('nweets')
       .where('creatorId', '==', userObj.uid)
-      .orderBy('createdAt', 'asc')
+      .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
         const newArray = snapshot.docs.map((document) => ({
           id: document.id,
